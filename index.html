@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#070f24">
+<title>משימת בסיס ירח – משחק הירח</title>
+<meta name="description" content="משחק לטאבלט על הירח: בוחרים אתר נחיתה, מזהים מופעים, מגינים מפני מטאוריטים, שורדים יום ולילה ומחשבים כבידה של שישית.">
+<meta property="og:title" content="משימת בסיס ירח">
+<meta property="og:description" content="כל תלמיד מתכנן בסיס קבע על הירח, ומחליט על פי מה שלמד.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%99%3C/text%3E%3C/svg%3E">
+<link rel="preload" href="fonts/Rubik.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="space">
+<div class="s-wrap">
+  <header class="s-top">
+    <div class="brand"><span class="logo" aria-hidden="true">🌙</span><span>משימת בסיס ירח</span></div>
+    <div class="chip-pts" id="ptsChip" hidden><span id="whoName"></span> · <span id="ptsVal">0</span> נק׳</div>
+  </header>
+  <div class="steps" id="steps" hidden aria-hidden="true"></div>
+  <main id="app">
+    <!-- JOIN -->
+    <section class="screen" id="scr-join">
+      <div class="hero center">
+        <div class="big-emoji" aria-hidden="true">🚀🌙🏠</div>
+        <h1>משימת בסיס ירח</h1>
+        <p>אתם מתכננים בסיס קבע על הירח. כל החלטה צריכה להתאים למה שלמדנו.</p>
+      </div>
+      <form class="card" id="joinForm" novalidate>
+        <label class="lbl" for="code">קוד הכיתה</label>
+        <input class="field code-input" id="code" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off" placeholder="0000" required>
+        <label class="lbl" for="name">השם הפרטי שלך</label>
+        <input class="field" id="name" maxlength="14" autocomplete="given-name" placeholder="למשל: נועה" required>
+        <p class="err" id="joinErr" role="alert"></p>
+        <button class="btn wide" type="submit" id="joinBtn">הצטרפות למשימה</button>
+      </form>
+      <p class="small-link muted">מורה? <a href="teacher.html">אני המורה</a></p>
+    </section>
+
+    <!-- WAIT -->
+    <section class="screen center" id="scr-wait" hidden>
+      <div class="big-emoji" aria-hidden="true">👩‍🚀</div>
+      <h1 style="margin:.2rem 0">שלום <span id="waitName"></span>!</h1>
+      <div class="spinner" aria-hidden="true"></div>
+      <p style="font-size:1.4rem;font-weight:700;margin:0">ספירה לאחור... מחכים למורה</p>
+      <p class="muted">ברגע שהמורה יתחיל, המשימה תיפתח כאן.</p>
+    </section>
+
+    <!-- INTRO -->
+    <section class="screen" id="scr-intro" hidden>
+      <div class="card intro center">
+        <span class="stage-tag" id="introTag">שלב 1 מתוך 6</span>
+        <div class="big-emoji" id="introEmoji" style="margin-top:.6rem">📍</div>
+        <h2 id="introTitle"></h2>
+        <p id="introText"></p>
+        <p id="introText2" style="color:#5a6b85"></p>
+        <button class="btn wide" id="introGo" style="margin-top:1rem">יאללה, מתחילים!</button>
+      </div>
+    </section>
+
+    <!-- QUESTION -->
+    <section class="screen play" id="scr-q" hidden>
+      <div class="bar"><span class="title" id="qTitle"></span><span class="meta" id="qMeta"></span></div>
+      <div class="q-card card" id="qCard">
+        <p class="q-text" id="qText"></p>
+        <div class="visual" id="qVisual"></div>
+        <div class="opts" id="qOpts"></div>
+        <form class="num-row" id="qNum" hidden novalidate>
+          <input class="field num-input" id="numIn" inputmode="decimal" autocomplete="off" aria-label="התשובה שלך">
+          <span class="unit" id="numUnit"></span>
+          <button class="btn" type="submit" id="numGo">בדיקה</button>
+        </form>
+        <div class="fb" id="qFb" hidden aria-live="polite"></div>
+        <button class="btn wide" id="qNext" hidden>המשך ←</button>
+      </div>
+    </section>
+
+    <!-- FACT CARD -->
+    <section class="screen" id="scr-fact" hidden>
+      <div class="card fact-card" id="factCard"></div>
+    </section>
+
+    <!-- REPORT / END -->
+    <section class="screen" id="scr-end" hidden>
+      <div class="card center report">
+        <div class="big-emoji" aria-hidden="true">📋🌙</div>
+        <h2 style="margin:.3rem 0" id="endTitle">דו״ח המשימה</h2>
+        <div class="stars" id="endStars" aria-label=""></div>
+        <p class="score-big" id="endScore">0</p>
+        <p style="margin:0 0 .8rem;font-weight:700">נקודות</p>
+        <div id="endReport"></div>
+        <p style="font-size:1.35rem;font-weight:800;margin:1rem 0 0">חכו לסיכום של כל הכיתה על הלוח 👀</p>
+      </div>
+    </section>
+  </main>
+</div>
+<script src="config.js"></script>
+<script src="api.js"></script>
+<script src="student.js"></script>
+</body>
+</html>
